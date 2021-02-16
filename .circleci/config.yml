@@ -10,29 +10,58 @@ jobs:
       - run: npm --version
       - run: npm install
       - run: npm run test
-  afterTests1:
+  deployBackend:
+    machine: true
+    steps:
+      - run: echo "Backend deployed"
+  integrationTestsBackend:
+    machine: true
+    steps:
+      - run: echo "Backend tests....OK"
+  deployStaging:
+    machine: true
+    steps:
+      - run: echo "Staging deployed"
+  acceptanceTest1:
     machine: true
     steps:
       - run: echo "tests 1 have passed!"
-  afterTests2:
+  acceptanceTest2:
     machine: true
     steps:
       - run: echo "tests 2 have passed!"
-  deploy:
+  acceptanceTest3:
     machine: true
     steps:
-      - run: echo "deploy"
+      - run: echo "tests 3 have passed!"
+  acceptanceTest4:
+    machine: true
+    steps:
+      - run: echo "tests 4 have passed!"
+  deployProduction:
+    machine: true
+    steps:
+      - run: echo "Production deployed"
 workflows:
   build:
     jobs:
-      - checkoutAndTest
-      - afterTests1:
+      - checkoutAndTest                                 
+      - deployBackend:
           requires:
             - checkoutAndTest
-      - afterTests2:
+      - integrationTestsBackend:
           requires:
-            - checkoutAndTest
-      - deploy:
+            - deployBackend
+      - deployStaging:
           requires:
-            - afterTests1
-            - afterTests2
+            - integrationTestsBackend
+      - acceptanceTest1
+      - acceptanceTest2
+      - acceptanceTest3
+      - acceptanceTest4
+      - deployProduction:
+        requires:
+          - acceptanceTest1
+          - acceptanceTest2
+          - acceptanceTest3
+          - acceptanceTest4
