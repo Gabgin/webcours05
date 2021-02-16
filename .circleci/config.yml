@@ -58,13 +58,13 @@
         - acceptanceTest1:
             requires:
               - deployStaging
-        - acceptanceTest2
+        - acceptanceTest2:
             requires:
               - deployStaging
-        - acceptanceTest3
+        - acceptanceTest3:
             requires:
               - deployStaging
-        - acceptanceTest4
+        - acceptanceTest4:
             requires:
               - deployStaging
         - deployProduction:
