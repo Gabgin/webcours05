@@ -55,13 +55,21 @@
         - deployStaging:
             requires:
               - integrationTestsBackend
-        - acceptanceTest1
+        - acceptanceTest1:
+            requires:
+              - deployStaging
         - acceptanceTest2
+            requires:
+              - deployStaging
         - acceptanceTest3
+            requires:
+              - deployStaging
         - acceptanceTest4
+            requires:
+              - deployStaging
         - deployProduction:
-          requires:
-            - acceptanceTest1
-            - acceptanceTest2
-            - acceptanceTest3
-            - acceptanceTest4
+            requires:
+              - acceptanceTest1
+              - acceptanceTest2
+              - acceptanceTest3
+              - acceptanceTest4
